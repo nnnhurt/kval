@@ -73,11 +73,11 @@ from django.core.exceptions import ValidationError
 def min_value(value: int) -> None:
     if value < 1000:
         raise ValidationError('>=1000')
-        
+# итнвертируем условие чтобы именно выдавал ошибку пон         
 
 class Books(models.Model):
     id = models.BigAutoField(primary_key=True)
-    title = models.CharField(max_length=200, null=False, blank=False)
+    title = models.CharField(max_length=200, null=False, blank=False) # если надо сделать не пустым то null false и blank true
     author = models.CharField(max_length=150)
     published_year = models.IntegerField(validators=[min_value])
     isbn = models.CharField(max_length=20)
