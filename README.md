@@ -3,6 +3,13 @@
 ## 2. cd kval/kval
 ## 3. Удалить существующую миграцию 0001_initial.py
 ## 4. Ставим venv
+Если выдаст no module named venv, то
+```
+sudo apt install -y python3-venv
+
+```
+
+## 5. Ставим venv
 ```
  python -m venv .venv
  source .venv/bin/activate
@@ -14,27 +21,27 @@ pip install -r requirements.txt
 потом find
 найти venv потом в нем bin и потом любой python
 и нажимаю select
-## 5. Переписываем модель
-## 6. Делаем миграции
+## 6. Переписываем модель
+## 7. Делаем миграции
 ```
 python3 manage.py makemigrations
 ```
-## 7. Делаем Сереализатор
-## 8. Делаем Вьюсет
-## 9. Исправляем путь в urls в app на нынешнюю сущность
-## 10. docker compose up --build
-## 11. Переходим http://localhost/api
-## 12. Проверяем работоспособность теста командой
+## 8. Делаем Сереализатор
+## 9. Делаем Вьюсет
+## 10. Исправляем путь в urls в app на нынешнюю сущность
+## 11. docker compose up --build
+## 12. Переходим http://localhost/api
+## 13. Проверяем работоспособность теста командой
 ```
 TESTING=1 python manage.py test
 ```
-## 13. Драка с ruff
+## 14. Драка с ruff
 ```
 ruff check
 ruff check --fix
 ruff check
 ```
-## 14. Проверка логирования
+## 15. Проверка логирования
 выведет abcd в логах
 ```
 curl localhost/api/health/ -H 'X-Correlation-ID: abcde'
@@ -43,7 +50,7 @@ curl localhost/api/health/ -H 'X-Correlation-ID: abcde'
 ```
 curl localhost/api/health/ 
 ```
-## 15. Prometheus
+## 16. Prometheus
 иду на http://localhost/metrics
 и нужны метрики
 django_db_query_duration_seconds_count
@@ -53,7 +60,7 @@ django_db_query_duration_seconds_sum
 http_requests_total{status_group="2xx"} - количество успешных запросов
 http_requests_total{status_group="total"} - тотально
 http_requests_total{status_group="4xx"}  - ошибки
-## 16. телепаем сдавать
+## 17. телепаем сдавать
 
 
 ### Ошибки
