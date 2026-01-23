@@ -112,6 +112,21 @@ cd -
 docker compose down -v
 docker compose up --build
 ```
+4. если будет говорить на убунте что docker: permission denied или что то такое, то вот такая команда
+```
+sudo usermod -aG docker $USER
+```
+и перезайти в пользователя либо лучше вообще перезагрузить комп
+
+5. еще если будут какие то проблемы как вариант почистить все контейнеры докера
+```
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker network prune
+# в проекте
+docker compose down -v
+docker compose up --build
+```
 
 ## ----
 ## Ставим venv
