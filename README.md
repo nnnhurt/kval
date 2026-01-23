@@ -8,7 +8,10 @@
 sudo apt install -y python3-venv
 
 ```
-
+если будет какая-то беда в пипом:
+```
+sudo apt install -y python3-pip
+```
 ## 5. Ставим venv
 ```
  python -m venv .venv
