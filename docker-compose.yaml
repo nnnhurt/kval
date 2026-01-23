@@ -1,0 +1,39 @@
+# это у нас с бдшкой
+services: 
+  db_kval:
+    image: postgres:16
+    env_file: .env
+    volumes:
+      - ./db_kval:/var/lib/postgresql/data
+    healthcheck: 
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+# закончилось с бдшкой
+# контейнер для нашего приложения
+  web_kval:
+    build:
+      context: . 
+    env_file: .env
+    volumes: 
+      - ./kval:/app
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/health/ || exit 1"]
+    depends_on:
+      db_kval: 
+        condition: service_healthy
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+# контейнер для ngnix
+  nginx: 
+    image: nginx:mainline
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:80:80
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      web_kval:
+        condition: service_healthy
+volumes:
+  db_kval:
