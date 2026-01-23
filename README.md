@@ -63,6 +63,34 @@ django_db_query_duration_seconds_sum
 http_requests_total{status_group="2xx"} - количество успешных запросов
 http_requests_total{status_group="total"} - тотально
 http_requests_total{status_group="4xx"}  - ошибки
+
+
+### о том как писать валидацию 
+```
+from django.db import models
+from django.core.exceptions import ValidationError
+
+def min_value(value: int) -> None:
+    if value < 1000:
+        raise ValidationError('>=1000')
+        
+
+class Books(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    title = models.CharField(max_length=200, null=False, blank=False)
+    author = models.CharField(max_length=150)
+    published_year = models.IntegerField(validators=[min_value])
+    isbn = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+```
+
+и прописываем когда делаю миграцию или когда нужно почистить постгрес и в любой непонятной ситуации
+```
+docker compose down -v
+```
+
+
+
 ## 17. телепаем сдавать
 
 
